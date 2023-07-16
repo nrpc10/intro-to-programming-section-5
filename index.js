@@ -12,7 +12,8 @@ const biggerThan = document.getElementById('bigger');
 
 let targetNumber;
 let attempts = 0;
-const maxNumberOfAttempts = 5;
+let maxNumberOfAttempts = 5;
+
 
 // Returns a random number from min (inclusive) to max (exclusive)
 // Usage:
@@ -31,12 +32,14 @@ function checkGuess() {
 
   if (guess > 99)  {
     hideAllMessages();
-    lesserThan.style.display = ''; 
-    } else if (guess < 1)  {
+    guessInput.value = '';
+    lesserThan.style.display = '';
+    } else if (guess < 1) {
       hideAllMessages();
+      guessInput.value = '';
       biggerThan.style.display = '';
     } else {
- 
+
     hideAllMessages();
 
     if (guess === targetNumber) {
@@ -56,16 +59,14 @@ function checkGuess() {
         tooHighMessage.style.display = '';
       }
 
-      const remainingAttempts = maxNumberOfAttempts - attempts;
+      let remainingAttempts = maxNumberOfAttempts - attempts;
 
       numberOfGuessesMessage.style.display = '';
-      numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guesses remaining`;
-       if (remainingAttempts === 1) {
-        numberOfGuessesMessage.style.display = '';
-        numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guess remaining`;
-       }
-    }
-  }
+      numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} 
+      ${remainingAttempts === 1 ? "guess" : "guesses"} remaining`;
+       
+      }
+  
     if (attempts === maxNumberOfAttempts) {
       submitButton.disabled = true;
       guessInput.disabled = true;
@@ -74,6 +75,7 @@ function checkGuess() {
     guessInput.value = '';
 
     resetButton.style.display = '';
+    }
   }
 
 
@@ -89,7 +91,8 @@ function setup() {
   console.log(`target number: ${targetNumber}`);
 
   // Reset number of attempts
-  let maxNumberOfAttempts = 0;
+  // Attempts = 0;
+  // maxNumberOfAttempts = 5;
 
   // Enable the input and submit button
   submitButton.disabled = false;
@@ -97,9 +100,14 @@ function setup() {
 
   hideAllMessages();
   resetButton.style.display = 'none';
+
+  attempts = 0;
+  maxNumberOfAttempts = 5;
+
 }
 
 submitButton.addEventListener('click', checkGuess);
+
 resetButton.addEventListener('click', setup);
 
 setup();
