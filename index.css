@@ -13,3 +13,11 @@ main {
 #reset {
   margin: 20px;
 }
+
+#lesser {
+  color: red;
+}
+
+#bigger {
+  color: red;
+}
